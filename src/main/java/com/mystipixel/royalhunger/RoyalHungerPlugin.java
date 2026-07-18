@@ -3,6 +3,8 @@ package com.mystipixel.royalhunger;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -20,6 +22,9 @@ import java.util.Set;
  */
 public final class RoyalHungerPlugin extends JavaPlugin {
 
+    /** bStats project id. Identifies the plugin, not the server, so it is fixed rather than configurable. */
+    private static final int BSTATS_PLUGIN_ID = 32732;
+
     private boolean whitelist;                       // true = whitelist mode, false = blacklist
     private final Set<String> worlds = new HashSet<>();
 
@@ -28,6 +33,7 @@ public final class RoyalHungerPlugin extends JavaPlugin {
         saveDefaultConfig();
         reloadSettings();
         getServer().getPluginManager().registerEvents(new HungerListener(this), this);
+        setupMetrics();
         getLogger().info("RoyalHunger enabled — hunger disabled in " + describeScope() + ".");
     }
 
@@ -77,4 +83,17 @@ public final class RoyalHungerPlugin extends JavaPlugin {
         sender.sendMessage("§eRoyalHunger §7— /" + label + " reload");
         return true;
     }
+    /**
+     * Anonymous usage reporting via bStats.
+     *
+     * <p>Server owners who want no reporting disable it globally in plugins/bStats/config.yml, which
+     * is the mechanism bStats provides; the id itself is fixed because it names this plugin's project.
+     */
+    private void setupMetrics() {
+        Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
+        metrics.addCustomChart(new SimplePie("mode", () -> getConfig().getString("mode", "blacklist")));
+        metrics.addCustomChart(new SimplePie("worlds_listed",
+                () -> String.valueOf(getConfig().getStringList("worlds").size())));
+    }
+
 }
