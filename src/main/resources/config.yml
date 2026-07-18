@@ -1,0 +1,22 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+#  NoHunger  ·  Configuration
+# ═══════════════════════════════════════════════════════════════════════════════
+#  Keeps players' hunger bar full so food never drains and nobody needs to eat.
+#  There is no vanilla gamerule for this, so this plugin pins the food level.
+#
+#  By default hunger is disabled in EVERY world. Use the list below to carve out
+#  exceptions — e.g. a hardcore world where you WANT normal vanilla hunger.
+#  Apply changes at runtime with /nohunger reload.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# How the 'worlds' list below is interpreted:
+#   blacklist  - disable hunger in ALL worlds EXCEPT the ones listed
+#                (listed worlds keep normal vanilla hunger — e.g. a hardcore world)
+#   whitelist  - disable hunger ONLY in the worlds listed
+#                (every other world keeps normal vanilla hunger)
+mode: blacklist
+
+# World names, one per line (case-insensitive). Empty list + blacklist = hunger off everywhere.
+worlds: []
+#  - world_hardcore
+#  - some_other_world

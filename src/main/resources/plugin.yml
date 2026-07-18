@@ -1,0 +1,15 @@
+name: NoHunger
+version: ${version}
+main: com.mystipixel.nohunger.NoHungerPlugin
+api-version: '1.21'
+author: Mystipixel
+description: Keeps players' hunger bar full so food never drains, with per-world whitelist/blacklist control.
+commands:
+  nohunger:
+    description: NoHunger admin tools.
+    usage: /nohunger reload
+    aliases: [nh]
+permissions:
+  nohunger.admin:
+    description: Reload the NoHunger config.
+    default: op
