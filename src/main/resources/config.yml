@@ -1,12 +1,12 @@
 # ═══════════════════════════════════════════════════════════════════════════════
-#  NoHunger  ·  Configuration
+#  RoyalHunger  ·  Configuration
 # ═══════════════════════════════════════════════════════════════════════════════
 #  Keeps players' hunger bar full so food never drains and nobody needs to eat.
 #  There is no vanilla gamerule for this, so this plugin pins the food level.
 #
 #  By default hunger is disabled in EVERY world. Use the list below to carve out
 #  exceptions — e.g. a hardcore world where you WANT normal vanilla hunger.
-#  Apply changes at runtime with /nohunger reload.
+#  Apply changes at runtime with /royalhunger reload.
 # ═══════════════════════════════════════════════════════════════════════════════
 
 # How the 'worlds' list below is interpreted:

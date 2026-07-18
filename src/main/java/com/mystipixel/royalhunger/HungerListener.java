@@ -1,4 +1,4 @@
-package com.mystipixel.nohunger;
+package com.mystipixel.royalhunger;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 /**
- * Holds the hunger bar full in every world where {@link NoHungerPlugin#hungerDisabledIn} says so.
+ * Holds the hunger bar full in every world where {@link RoyalHungerPlugin#hungerDisabledIn} says so.
  *
  * <p>To drop below full the server fires {@link FoodLevelChangeEvent}, so pinning the new level to 20
  * (and topping saturation) means the bar never moves. Join / respawn / world-change top-offs cover a
@@ -21,9 +21,9 @@ public final class HungerListener implements Listener {
     private static final int FULL_FOOD = 20;
     private static final float FULL_SATURATION = 20f;
 
-    private final NoHungerPlugin plugin;
+    private final RoyalHungerPlugin plugin;
 
-    public HungerListener(NoHungerPlugin plugin) {
+    public HungerListener(RoyalHungerPlugin plugin) {
         this.plugin = plugin;
     }
 

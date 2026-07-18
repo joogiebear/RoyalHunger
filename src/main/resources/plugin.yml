@@ -1,15 +1,16 @@
-name: NoHunger
+name: RoyalHunger
 version: ${version}
-main: com.mystipixel.nohunger.NoHungerPlugin
+main: com.mystipixel.royalhunger.RoyalHungerPlugin
 api-version: '1.21'
 author: Mystipixel
 description: Keeps players' hunger bar full so food never drains, with per-world whitelist/blacklist control.
 commands:
-  nohunger:
-    description: NoHunger admin tools.
-    usage: /nohunger reload
-    aliases: [nh]
+  royalhunger:
+    description: RoyalHunger admin tools.
+    usage: /royalhunger reload
+    # nohunger kept as an alias so existing commands and scripts still work after the rename.
+    aliases: [nohunger, nh, rh]
 permissions:
-  nohunger.admin:
-    description: Reload the NoHunger config.
+  royalhunger.admin:
+    description: Reload the RoyalHunger config.
     default: op

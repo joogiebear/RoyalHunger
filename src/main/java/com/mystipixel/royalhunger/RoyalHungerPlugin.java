@@ -1,4 +1,4 @@
-package com.mystipixel.nohunger;
+package com.mystipixel.royalhunger;
 
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -18,7 +18,7 @@ import java.util.Set;
  * Blacklist (the default) disables hunger everywhere except the listed worlds — so a hardcore world
  * can be listed to keep normal vanilla hunger there. Whitelist disables hunger only in the listed worlds.
  */
-public final class NoHungerPlugin extends JavaPlugin {
+public final class RoyalHungerPlugin extends JavaPlugin {
 
     private boolean whitelist;                       // true = whitelist mode, false = blacklist
     private final Set<String> worlds = new HashSet<>();
@@ -28,10 +28,10 @@ public final class NoHungerPlugin extends JavaPlugin {
         saveDefaultConfig();
         reloadSettings();
         getServer().getPluginManager().registerEvents(new HungerListener(this), this);
-        getLogger().info("NoHunger enabled — hunger disabled in " + describeScope() + ".");
+        getLogger().info("RoyalHunger enabled — hunger disabled in " + describeScope() + ".");
     }
 
-    /** Re-read config.yml and rebuild the world set. Safe to call at runtime (used by /nohunger reload). */
+    /** Re-read config.yml and rebuild the world set. Safe to call at runtime (used by /royalhunger reload). */
     public void reloadSettings() {
         reloadConfig();
         String mode = getConfig().getString("mode", "blacklist").toLowerCase(Locale.ROOT);
@@ -66,15 +66,15 @@ public final class NoHungerPlugin extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            if (!sender.hasPermission("nohunger.admin")) {
+            if (!sender.hasPermission("royalhunger.admin")) {
                 sender.sendMessage("§cYou don't have permission to do that.");
                 return true;
             }
             reloadSettings();
-            sender.sendMessage("§aNoHunger reloaded — hunger disabled in " + describeScope() + ".");
+            sender.sendMessage("§aRoyalHunger reloaded — hunger disabled in " + describeScope() + ".");
             return true;
         }
-        sender.sendMessage("§eNoHunger §7— /" + label + " reload");
+        sender.sendMessage("§eRoyalHunger §7— /" + label + " reload");
         return true;
     }
 }

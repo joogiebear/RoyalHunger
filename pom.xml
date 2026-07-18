@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mystipixel</groupId>
-    <artifactId>nohunger</artifactId>
+    <artifactId>royalhunger</artifactId>
     <version>2026.29.0</version>
     <packaging>jar</packaging>
 
-    <name>NoHunger</name>
+    <name>RoyalHunger</name>
     <description>Keeps players' hunger bar full so food never drains, with per-world whitelist/blacklist control.</description>
 
     <properties>
@@ -34,7 +34,7 @@
     </dependencies>
 
     <build>
-        <finalName>NoHunger</finalName>
+        <finalName>RoyalHunger</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
