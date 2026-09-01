@@ -6,7 +6,7 @@ There is no vanilla gamerule for this. `saturatedRegeneration` and friends chang
 not whether the bar empties, so the only way to switch hunger off is to pin the food level — which is
 all this plugin does.
 
-Part of the Royal plugin suite.
+Part of the Royal plugin suite. Requires Paper 26.2 or newer.
 
 ---
 
