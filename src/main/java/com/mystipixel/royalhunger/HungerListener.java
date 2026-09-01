@@ -37,7 +37,9 @@ public final class HungerListener implements Listener {
             return;
         }
         event.setFoodLevel(FULL_FOOD);
-        player.setSaturation(FULL_SATURATION);
+        if (plugin.fullSaturation()) {
+            player.setSaturation(FULL_SATURATION);
+        }
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -60,7 +62,9 @@ public final class HungerListener implements Listener {
             return;
         }
         player.setFoodLevel(FULL_FOOD);
-        player.setSaturation(FULL_SATURATION);
+        if (plugin.fullSaturation()) {
+            player.setSaturation(FULL_SATURATION);
+        }
         player.setExhaustion(0f);
     }
 }

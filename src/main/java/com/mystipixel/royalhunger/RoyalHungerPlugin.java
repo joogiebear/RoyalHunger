@@ -26,6 +26,7 @@ public final class RoyalHungerPlugin extends JavaPlugin {
     private static final int BSTATS_PLUGIN_ID = 32732;
 
     private boolean whitelist;                       // true = whitelist mode, false = blacklist
+    private boolean fullSaturation;                  // also pin saturation (fast regen) — see config
     private final Set<String> worlds = new HashSet<>();
 
     @Override
@@ -45,12 +46,22 @@ public final class RoyalHungerPlugin extends JavaPlugin {
         if (!whitelist && !mode.equals("blacklist")) {
             getLogger().warning("mode '" + mode + "' is not 'blacklist' or 'whitelist' — defaulting to blacklist.");
         }
+        this.fullSaturation = getConfig().getBoolean("full-saturation", true);
         worlds.clear();
         for (String w : getConfig().getStringList("worlds")) {
             if (w != null && !w.isBlank()) {
                 worlds.add(w.toLowerCase(Locale.ROOT));
             }
         }
+    }
+
+    /**
+     * Whether saturation is pinned too. Full saturation is not just "no hunger" — it grants the fast
+     * saturated health regeneration permanently, which is a combat-balance decision; false keeps the
+     * food bar pinned while health regenerates at vanilla's slower food-level rate.
+     */
+    public boolean fullSaturation() {
+        return fullSaturation;
     }
 
     /** Whether hunger should be held full for players in this world, per the configured mode + list. */
@@ -92,6 +103,8 @@ public final class RoyalHungerPlugin extends JavaPlugin {
     private void setupMetrics() {
         Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
         metrics.addCustomChart(new SimplePie("mode", () -> getConfig().getString("mode", "blacklist")));
+        metrics.addCustomChart(new SimplePie("full_saturation",
+                () -> String.valueOf(getConfig().getBoolean("full-saturation", true))));
         metrics.addCustomChart(new SimplePie("worlds_listed",
                 () -> String.valueOf(getConfig().getStringList("worlds").size())));
     }
