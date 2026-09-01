@@ -91,8 +91,37 @@ public final class RoyalHungerPlugin extends JavaPlugin {
             sender.sendMessage("§aRoyalHunger reloaded — hunger disabled in " + describeScope() + ".");
             return true;
         }
-        sender.sendMessage("§eRoyalHunger §7— /" + label + " reload");
+        if (args.length == 1 && args[0].equalsIgnoreCase("status")) {
+            if (!sender.hasPermission("royalhunger.admin")) {
+                sender.sendMessage("§cYou don't have permission to do that.");
+                return true;
+            }
+            status(sender);
+            return true;
+        }
+        sender.sendMessage("§eRoyalHunger §7— /" + label + " reload§7|§estatus");
         return true;
+    }
+
+    /**
+     * Answer "why is hunger (not) draining here" without making the admin re-derive it from config:
+     * the mode, the list, and — for a player — the verdict for the world they are standing in,
+     * including whether that world matched the list. The usual culprit is a world-name mismatch,
+     * which is exactly what the listed/not-listed line makes visible.
+     */
+    private void status(CommandSender sender) {
+        sender.sendMessage("§eRoyalHunger §7— mode: §f" + (whitelist ? "whitelist" : "blacklist")
+                + "§7, " + worlds.size() + " world(s) listed, saturation "
+                + (fullSaturation ? "§fpinned §7(fast regen)" : "§fnot pinned §7(vanilla regen)") + ".");
+        if (!(sender instanceof org.bukkit.entity.Player player)) {
+            return;
+        }
+        World world = player.getWorld();
+        boolean listed = worlds.contains(world.getName().toLowerCase(Locale.ROOT));
+        boolean disabled = hungerDisabledIn(world);
+        sender.sendMessage("§7This world (§f" + world.getName() + "§7): hunger is "
+                + (disabled ? "§adisabled" : "§cactive") + "§7 — "
+                + (listed ? "listed" : "not listed") + " in the " + (whitelist ? "whitelist" : "blacklist") + ".");
     }
     /**
      * Anonymous usage reporting via bStats.

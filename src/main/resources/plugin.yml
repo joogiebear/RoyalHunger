@@ -7,7 +7,7 @@ description: Keeps players' hunger bar full so food never drains, with per-world
 commands:
   royalhunger:
     description: RoyalHunger admin tools.
-    usage: /royalhunger reload
+    usage: /royalhunger <reload|status>
     # nohunger kept as an alias so existing commands and scripts still work after the rename.
     aliases: [nohunger, nh, rh]
 permissions:
