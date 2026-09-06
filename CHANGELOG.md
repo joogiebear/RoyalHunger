@@ -1,3 +1,12 @@
+## 2026.36.0 — 2026-09-06
+
+### ✨ Features
+- /royalhunger status (`164f694`)
+- full-saturation config - pin the bar without the fast regen (`806efac`)
+
+### 📝 Documentation
+- state the Paper 26.2-or-newer requirement (`5a1459e`)
+
 ## 2026.32.0 — 2026-08-07
 
 ### ✨ Features
