@@ -27,8 +27,8 @@ public final class HungerListener implements Listener {
         this.plugin = plugin;
     }
 
-    // HIGH so we have the final say on the level, regardless of what other plugins set.
-    @EventHandler(priority = EventPriority.HIGH)
+    // HIGH so we override what most plugins set; a cancelled event means the bar isn't changing anyway.
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onFoodChange(FoodLevelChangeEvent event) {
         if (!(event.getEntity() instanceof Player player)) {
             return;
@@ -47,17 +47,24 @@ public final class HungerListener implements Listener {
         topOff(event.getPlayer());
     }
 
+    // During the event the player is still in the world they died in, and vanilla resets their food
+    // once it returns, so top off a tick later, when they are standing in the respawn world.
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRespawn(PlayerRespawnEvent event) {
-        topOff(event.getPlayer());
+        Player player = event.getPlayer();
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
+            if (player.isOnline()) {
+                topOff(player);
+            }
+        });
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onWorldChange(PlayerChangedWorldEvent event) {
         topOff(event.getPlayer());
     }
 
-    private void topOff(Player player) {
+    void topOff(Player player) {
         if (!plugin.hungerDisabledIn(player.getWorld())) {
             return;
         }
