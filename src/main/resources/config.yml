@@ -17,7 +17,8 @@
 mode: blacklist
 
 # Whether to ALSO keep saturation topped up wherever hunger is disabled.
-#   true  - players permanently have the FAST (saturated) health regeneration.
+#   true  - saturation is refilled whenever the food bar would drop, so players
+#           effectively always have the FAST (saturated) health regeneration.
 #           Right for a hub; on a world with combat it is free max-speed healing.
 #   false - only the food bar is pinned at 20. Hunger still never drains and
 #           nobody has to eat, but health regenerates at vanilla's slower
