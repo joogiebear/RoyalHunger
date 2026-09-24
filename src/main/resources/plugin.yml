@@ -12,5 +12,5 @@ commands:
     aliases: [nohunger, nh, rh]
 permissions:
   royalhunger.admin:
-    description: Reload the RoyalHunger config.
+    description: Use /royalhunger reload and /royalhunger status.
     default: op

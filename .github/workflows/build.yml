@@ -1,7 +1,7 @@
 name: Build
 
 # Compile + test on every push/PR to main. Catches breakage (e.g. an unresolved
-# dependency or a failing test) long before the Friday release job runs.
+# dependency or a failing test) before a release is started.
 on:
   push:
     branches: [ main ]

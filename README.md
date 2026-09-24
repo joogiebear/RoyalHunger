@@ -24,15 +24,20 @@ So a server that wants no hunger anywhere except a hardcore world uses `blacklis
 listed. A server that wants vanilla hunger everywhere except its hub uses `whitelist` with the hub
 listed.
 
-Players in an affected world keep a full bar and full saturation, so sprinting and natural regeneration
-behave as if they had just eaten.
+Players in an affected world keep a full food bar, so they can always sprint and never need to eat. By
+default saturation is kept topped up as well, which means permanent fast (saturated) health
+regeneration; set `full-saturation: false` to keep the bar full but let health regenerate at vanilla's
+slower rate. That is the better choice for a world with combat.
+
+Players are topped off when they join, respawn, change world, and when the config is reloaded.
 
 ---
 
 ## Commands
 
 ```text
-/royalhunger reload     Re-read config.yml and rebuild the world list
+/royalhunger reload     Re-read config.yml, rebuild the world list and top off online players
+/royalhunger status     Show the mode, the list, and whether hunger is off in your current world
 ```
 
 Aliases: `/nohunger`, `/nh`, `/rh`.
@@ -40,7 +45,7 @@ Aliases: `/nohunger`, `/nh`, `/rh`.
 ## Permissions
 
 ```text
-royalhunger.admin   default: op   /royalhunger reload
+royalhunger.admin   default: op   /royalhunger reload, /royalhunger status
 ```
 
 ---
@@ -51,6 +56,10 @@ royalhunger.admin   default: op   /royalhunger reload
 # blacklist - hunger off in ALL worlds except those listed
 # whitelist - hunger off ONLY in the worlds listed
 mode: blacklist
+
+# true  - also keep saturation full (permanent fast health regeneration)
+# false - keep only the food bar full (vanilla-speed regeneration)
+full-saturation: true
 
 # World names, case-insensitive. Empty list + blacklist = hunger off everywhere.
 worlds: []
