@@ -1,3 +1,16 @@
+## 2026.39.1 — 2026-09-24
+
+### ✨ Features
+- top off online players on reload, tab-complete, testable settings (`db4793e`)
+
+### 🐛 Fixes
+- top off respawning players in the world they respawn in (`6dde178`)
+- use the ISO week-year for release versions (`08c4dfa`)
+
+### 📝 Documentation
+- document status, full-saturation and reload top-off (`71d3e07`)
+- add MIT license (`8638bc6`)
+
 ## 2026.39.0 — 2026-09-23
 
 ### 🔧 Other
