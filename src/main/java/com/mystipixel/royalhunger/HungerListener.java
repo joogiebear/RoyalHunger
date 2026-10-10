@@ -10,11 +10,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 /**
- * Holds the hunger bar full in every world where {@link RoyalHungerPlugin#hungerDisabledIn} says so.
- *
- * <p>To drop below full the server fires {@link FoodLevelChangeEvent}, so pinning the new level to 20
- * (and topping saturation) means the bar never moves. Join / respawn / world-change top-offs cover a
- * player who arrived low, since a perfectly still player generates no food event to correct them.
+ * Pins the food level on {@link FoodLevelChangeEvent}. The join, respawn and world-change top-offs
+ * cover a player who arrives low, since a still player fires no food event.
  */
 public final class HungerListener implements Listener {
 
