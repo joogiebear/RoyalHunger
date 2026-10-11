@@ -1,3 +1,11 @@
+## 2026.41.0 - 2026-10-10
+
+### Refactors
+- read all player-facing text from config (`52b4d59`)
+
+### Documentation
+- add AGENTS.md with the suite's development standards (`bab5860`)
+
 ## 2026.39.1 — 2026-09-24
 
 ### ✨ Features
