@@ -36,7 +36,7 @@ Players are topped off when they join, respawn, change world, and when the confi
 ## Commands
 
 ```text
-/royalhunger reload     Re-read config.yml, rebuild the world list and top off online players
+/royalhunger reload     Re-read config.yml and messages.yml, rebuild the world list and top off online players
 /royalhunger status     Show the mode, the list, and whether hunger is off in your current world
 ```
 
@@ -67,6 +67,8 @@ worlds: []
 
 World names are matched case-insensitively, and the list is re-read by `/royalhunger reload` without a
 restart.
+
+The command output is in `messages.yml`. A line missing from your copy uses the plugin's built-in default.
 
 ---
 

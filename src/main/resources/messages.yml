@@ -1,0 +1,28 @@
+# RoyalHunger messages (the /royalhunger command). Colour codes use &. Placeholders look like %label%.
+# A key missing from this file falls back to the plugin's built-in default.
+# Set a line to "" to hide it.
+
+usage: "&eRoyalHunger&7: /%label% &ereload&7|&estatus"
+no-permission: "&cYou don't have permission to do that."
+# %scope% is one of the scope lines below
+reloaded: "&aRoyalHunger reloaded: hunger disabled in %scope%."
+
+# Where hunger is disabled, by mode and whether the worlds list is empty.
+scope:
+  all-worlds: "all worlds"
+  all-except: "all worlds except %count% blacklisted"
+  whitelist-empty: "no worlds (whitelist is empty)"
+  whitelisted: "%count% whitelisted world(s)"
+
+# /royalhunger status. %mode% is blacklist or whitelist.
+status:
+  # %saturation% is saturation-pinned or saturation-vanilla
+  settings: "&eRoyalHunger&7, mode: &f%mode%&7, %count% world(s) listed, saturation %saturation%."
+  saturation-pinned: "&fpinned &7(fast regen)"
+  saturation-vanilla: "&fnot pinned &7(vanilla regen)"
+  # Shown to players only. %state% is disabled or active, %listed% is listed or not-listed.
+  world: "&7This world (&f%world%&7): hunger is %state%&7, %listed% in the %mode%."
+  disabled: "&adisabled"
+  active: "&cactive"
+  listed: "listed"
+  not-listed: "not listed"
