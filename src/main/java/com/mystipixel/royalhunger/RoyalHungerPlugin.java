@@ -25,10 +25,12 @@ public final class RoyalHungerPlugin extends JavaPlugin {
     // Replaced wholesale on reload; volatile because the bStats charts read it off the main thread.
     private volatile HungerSettings settings = HungerSettings.of("blacklist", true, List.of());
     private HungerListener listener;
+    private MessageManager messages;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        messages = new MessageManager(this);
         reloadSettings();
         listener = new HungerListener(this);
         getServer().getPluginManager().registerEvents(listener, this);
@@ -68,17 +70,18 @@ public final class RoyalHungerPlugin extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 1 || !SUBCOMMANDS.contains(args[0].toLowerCase(Locale.ROOT))) {
-            sender.sendMessage("§eRoyalHunger§7: /" + label + " §ereload§7|§estatus");
+            messages.send(sender, "usage", "label", label);
             return true;
         }
         if (!sender.hasPermission("royalhunger.admin")) {
-            sender.sendMessage("§cYou don't have permission to do that.");
+            messages.send(sender, "no-permission");
             return true;
         }
         if (args[0].equalsIgnoreCase("reload")) {
             reloadSettings();
+            messages.reload();
             topOffOnlinePlayers();
-            sender.sendMessage("§aRoyalHunger reloaded: hunger disabled in " + settings.describeScope() + ".");
+            messages.send(sender, "reloaded", "scope", scope(settings));
         } else {
             status(sender);
         }
@@ -97,17 +100,26 @@ public final class RoyalHungerPlugin extends JavaPlugin {
     // the listed/not-listed line exposes the usual culprit: a world-name mismatch
     private void status(CommandSender sender) {
         HungerSettings s = settings;
-        sender.sendMessage("§eRoyalHunger§7, mode: §f" + s.modeName()
-                + "§7, " + s.listedCount() + " world(s) listed, saturation "
-                + (s.fullSaturation() ? "§fpinned §7(fast regen)" : "§fnot pinned §7(vanilla regen)") + ".");
+        messages.send(sender, "status.settings", "mode", s.modeName(), "count", String.valueOf(s.listedCount()),
+                "saturation", s.fullSaturation() ? messages.get("status.saturation-pinned")
+                        : messages.get("status.saturation-vanilla"));
         if (!(sender instanceof Player player)) {
             return;
         }
         World world = player.getWorld();
         boolean disabled = s.hungerDisabledIn(world.getName());
-        sender.sendMessage("§7This world (§f" + world.getName() + "§7): hunger is "
-                + (disabled ? "§adisabled" : "§cactive") + "§7, "
-                + (s.isListed(world.getName()) ? "listed" : "not listed") + " in the " + s.modeName() + ".");
+        messages.send(sender, "status.world", "world", world.getName(),
+                "state", disabled ? messages.get("status.disabled") : messages.get("status.active"),
+                "listed", s.isListed(world.getName()) ? messages.get("status.listed") : messages.get("status.not-listed"),
+                "mode", s.modeName());
+    }
+
+    private String scope(HungerSettings s) {
+        String count = String.valueOf(s.listedCount());
+        if (s.whitelist()) {
+            return s.listedCount() == 0 ? messages.get("scope.whitelist-empty") : messages.get("scope.whitelisted", "count", count);
+        }
+        return s.listedCount() == 0 ? messages.get("scope.all-worlds") : messages.get("scope.all-except", "count", count);
     }
 
     // opt-out is global (plugins/bStats/config.yml); charts read parsed settings so typos don't skew them
